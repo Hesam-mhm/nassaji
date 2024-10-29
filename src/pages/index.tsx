@@ -24,11 +24,16 @@ const Home = () => {
   const router = useRouter()
 
   useEffect(() => {
-    const homeRoute = getHomeRoute('/home')
+    if (!router.isReady) {
+      return
+    }
 
-    // Redirect user to Home URL
-    router.replace(homeRoute)
+    if (auth.user && auth.user.role) {
+      const homeRoute = getHomeRoute(auth.user.role)
 
+      // Redirect user to Home URL
+      router.replace(homeRoute)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

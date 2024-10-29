@@ -73,6 +73,12 @@ const AuthProvider = ({ children }: Props) => {
   }, [])
 
   const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
+    const userData = { id: 1, role: 'admin', fullName: 'John Doe', username: 'johndoe', email: 'admin@materialize.com' }
+    const accessToken =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzMwMTkzNjIxLCJleHAiOjE3MzAxOTM5MjF9.Z2NkvA33kEcDMoNQz9iN5mi67cBOoKJ-LuXI5yVRDAs'
+
+    window.localStorage.setItem(authConfig.storageTokenKeyName, accessToken)
+    setUser({ ...(userData as UserDataType) })
     const returnUrl = router.query.returnUrl
     const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
     router.replace(redirectURL as string)
